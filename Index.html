@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Crocodile Fun Facts Generator</title>
+  <meta name="description" content="A modern, responsive fun facts generator about crocodiles.">
+  <style>
+    :root {
+      --main-bg: #f5f7fa;
+      --main-fg: #222;
+      --accent: #4f8cff;
+      --card-bg: #fff;
+      --card-shadow: 0 4px 24px rgba(0,0,0,0.08);
+      --btn-bg: #4f8cff;
+      --btn-fg: #fff;
+      --btn-hover: #357ae8;
+      --transition: 0.3s;
+    }
+    body {
+      margin: 0;
+      min-height: 100vh;
+      background: var(--main-bg);
+      color: var(--main-fg);
+      font-family: 'Segoe UI', Arial, sans-serif;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background 0.5s;
+    }
+    .container {
+      background: var(--card-bg);
+      box-shadow: var(--card-shadow);
+      border-radius: 16px;
+      padding: 2rem 1.5rem;
+      max-width: 400px;
+      width: 95vw;
+      text-align: center;
+      transition: background 0.5s;
+    }
+    h1 {
+      font-size: 1.6rem;
+      margin-bottom: 1.2rem;
+      letter-spacing: 0.01em;
+    }
+    #fact-container {
+      font-size: 1.15rem;
+      margin-bottom: 1.5rem;
+      min-height: 80px;
+      transition: color 0.5s;
+    }
+    .actions {
+      display: flex;
+      flex-direction: column;
+      gap: 0.7rem;
+      align-items: center;
+    }
+    button {
+      background: var(--btn-bg);
+      color: var(--btn-fg);
+      border: none;
+      border-radius: 6px;
+      padding: 0.7em 1.5em;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: background var(--transition);
+      font-weight: 500;
+    }
+    button:hover {
+      background: var(--btn-hover);
+    }
+    .social-buttons {
+      display: flex;
+      gap: 0.7rem;
+      margin-top: 0.5rem;
+    }
+    .social-btn {
+      background: #eee;
+      color: #222;
+      border: none;
+      border-radius: 50%;
+      width: 40px;
+      height: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.2rem;
+      cursor: pointer;
+      transition: background var(--transition);
+    }
+    .social-btn:hover {
+      background: #dbeafe;
+      color: #2563eb;
+    }
+    @media (max-width: 500px) {
+      .container { padding: 1.2rem 0.5rem; }
+      h1 { font-size: 1.2rem; }
+      #fact-container { font-size: 1rem; }
+    }
+  </style>
+</head>
+<body>
+  <div class="container" id="main-container">
+    <h1>Crocodile Fun Facts 🐊</h1>
+    <div id="fact-container">Loading...</div>
+    <div class="actions">
+      <button id="generate-fact">Another Fun Fact</button>
+      <div class="social-buttons">
+        <button class="social-btn" id="share-twitter" title="Share on Twitter" aria-label="Share on Twitter">
+          <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24"><path d="M22.46 5.924c-.793.352-1.645.59-2.54.698a4.48 4.48 0 0 0 1.963-2.475 8.94 8.94 0 0 1-2.828 1.082 4.48 4.48 0 0 0-7.635 4.085A12.72 12.72 0 0 1 3.11 4.86a4.48 4.48 0 0 0 1.388 5.976 4.47 4.47 0 0 1-2.03-.561v.057a4.48 4.48 0 0 0 3.594 4.393 4.48 4.48 0 0 1-2.025.077 4.48 4.48 0 0 0 4.184 3.112A8.98 8.98 0 0 1 2 19.54a12.7 12.7 0 0 0 6.88 2.017c8.26 0 12.78-6.84 12.78-12.78 0-.195-.004-.39-.013-.583A9.14 9.14 0 0 0 24 4.59a8.98 8.98 0 0 1-2.54.698z"/></svg>
+        </button>
+        <button class="social-btn" id="share-linkedin" title="Share on LinkedIn" aria-label="Share on LinkedIn">
+          <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24"><path d="M19 0h-14c-2.76 0-5 2.24-5 5v14c0 2.76 2.24 5 5 5h14c2.76 0 5-2.24 5-5v-14c0-2.76-2.24-5-5-5zm-11 19h-3v-9h3v9zm-1.5-10.29c-.97 0-1.75-.79-1.75-1.75s.78-1.75 1.75-1.75 1.75.79 1.75 1.75-.78 1.75-1.75 1.75zm13.5 10.29h-3v-4.5c0-1.08-.02-2.47-1.5-2.47-1.5 0-1.73 1.17-1.73 2.39v4.58h-3v-9h2.89v1.23h.04c.4-.75 1.38-1.54 2.84-1.54 3.04 0 3.6 2 3.6 4.59v4.72z"/></svg>
+        </button>
+      </div>
+    </div>
+  </div>
+  <script>
+    // Fun facts as per your previous messages
+    const facts = [
+      { fact: "Crocodiles have existed for over 200 million years, making them older than most dinosaurs and true living fossils." },
+      { fact: "The saltwater crocodile is the largest living reptile, with some males growing over 23 feet (7 meters) long and weighing more than a ton." },
+      { fact: "Crocodiles can replace each of their 60-70 teeth up to 50 times in their lifetime, ensuring they always have sharp teeth for hunting." },
+      { fact: "Unlike most reptiles, crocodiles have a four-chambered heart, similar to birds and mammals, which helps them stay underwater for up to an hour by slowing their heart rate." },
+      { fact: "Crocodiles use tools! They have been observed balancing sticks on their snouts to lure birds searching for nesting materials." },
+      { fact: "The sex of a baby crocodile is determined by the temperature of the nest: warmer nests produce males, cooler nests produce females." },
+      { fact: "Crocodiles have special sensory pits on their jaws called integumentary sense organs, which detect vibrations and movement in the water, helping them hunt in darkness." },
+      { fact: "Crocodiles can swim up to 20 miles per hour (32 km/h) using their powerful tails, making them formidable aquatic predators." },
+      { fact: "Despite their fearsome reputation, crocodiles are attentive parents. Females guard their nests and help hatchlings reach the water, even carrying them in their mouths." },
+      { fact: "Crocodiles communicate using a variety of sounds, including bellows, hisses, and even 'chirps' from hatchlings to alert their mothers when they are ready to hatch." }
+    ];
+
+    // Keyword to color mapping for color scheme adaptation
+    const colorMap = [
+      { keywords: ['ancient', 'fossil', 'million years', 'dinosaur'], bg: '#f7e9d7', fg: '#7a5c2e' }, // earthy
+      { keywords: ['water', 'swim', 'aquatic', 'tail'], bg: '#e0f2fe', fg: '#155e75' }, // blue
+      { keywords: ['powerful', 'bite', 'predator', 'hunt', 'sharp teeth'], bg: '#fee2e2', fg: '#991b1b' }, // red
+      { keywords: ['parent', 'hatchling', 'baby', 'female', 'mother', 'nest'], bg: '#fef9c3', fg: '#92400e' }, // yellow
+      { keywords: ['tool', 'stick', 'bird'], bg: '#e0e7ff', fg: '#3730a3' }, // purple
+      { keywords: ['heart', 'chambered', 'oxygen'], bg: '#d1fae5', fg: '#065f46' }, // green
+      { keywords: ['sound', 'communicate', 'chirp', 'bellow', 'hiss'], bg: '#f3e8ff', fg: '#7c3aed' }, // violet
+      // fallback
+      { keywords: [], bg: '#f5f7fa', fg: '#222' }
+    ];
+
+    // Utility: Find color scheme for a fact
+    function getColorScheme(fact) {
+      const lower = fact.toLowerCase();
+      for (const scheme of colorMap) {
+        if (scheme.keywords.some(kw => lower.includes(kw))) {
+          return { bg: scheme.bg, fg: scheme.fg };
+        }
+      }
+      // fallback
+      return { bg: colorMap[colorMap.length - 1].bg, fg: colorMap[colorMap.length - 1].fg };
+    }
+
+    // State
+    let lastIndex = -1;
+
+    // DOM Elements
+    const factContainer = document.getElementById('fact-container');
+    const mainContainer = document.getElementById('main-container');
+    const generateBtn = document.getElementById('generate-fact');
+    const twitterBtn = document.getElementById('share-twitter');
+    const linkedinBtn = document.getElementById('share-linkedin');
+
+    // Show a random fact and update color scheme
+    function showRandomFact() {
+      let idx;
+      do {
+        idx = Math.floor(Math.random() * facts.length);
+      } while (idx === lastIndex && facts.length > 1);
+      lastIndex = idx;
+      const fact = facts[idx].fact;
+      factContainer.textContent = fact;
+
+      // Adapt color scheme
+      const { bg, fg } = getColorScheme(fact);
+      document.body.style.background = bg;
+      mainContainer.style.background = bg;
+      factContainer.style.color = fg;
+    }
+
+    // Social sharing
+    function shareOnTwitter() {
+      const text = encodeURIComponent(factContainer.textContent + " #GenAIwithPieces");
+      const url = `https://twitter.com/intent/tweet?text=${text}`;
+      window.open(url, '_blank');
+    }
+    function shareOnLinkedIn() {
+      const text = encodeURIComponent(factContainer.textContent + " #GenAIwithPieces");
+      const url = `https://www.linkedin.com/sharing/share-offsite/?url=&summary=${text}`;
+      window.open(url, '_blank');
+    }
+
+    // Event listeners
+    generateBtn.addEventListener('click', showRandomFact);
+    twitterBtn.addEventListener('click', shareOnTwitter);
+    linkedinBtn.addEventListener('click', shareOnLinkedIn);
+
+    // Initial load
+    showRandomFact();
+  </script>
+</body>
+</html>
